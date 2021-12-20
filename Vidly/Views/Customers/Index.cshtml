@@ -1,0 +1,33 @@
+﻿@model List<Vidly.Models.Customer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ 
+    if (Model.Count == 0)
+    {  <text>No Data for the moment</text>}
+}
+<h2>Customers List</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>MemberShipType</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <th>
+                    <a href="Customers/Edit/@item.Id">@item.Name</a> 
+                </th>
+                <th>@item.MemberShipType.Name</th>
+                @*<td>@Html.ActionLink(item.Name,"Edit","Customers",new { id=item.Id})</td>
+                <td>@item.MemberShipType.Name</td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+
