@@ -22,6 +22,7 @@ namespace Vidly.Models
         public short MemberShipTypeId { get; set; }
         
         [Display(Name="Date of birth")]
+        [Min18YearsIfAMember]
         public DateTime? DOB { get; set; }
     }
 }

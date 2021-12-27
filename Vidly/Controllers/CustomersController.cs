@@ -58,12 +58,13 @@ namespace Vidly.Controllers
             var memberShipTypes = _context.MemberShipTypes.ToList();
             var viewModel = new FormCustomerViewModel
             {
+                Customer = new Customer(),
                 MemberShipTypes = memberShipTypes
              };
             return View(viewModel);
         }
 
-        [HttpPost]
+        [HttpPost]        
         public ActionResult Save(Customer customer)//On met Customer à la place de CreateCustomerViewModel parce que MVC Framework is smart to bind this object ! because all the keys in the form data is prefixed by Customer
         {
             if (!ModelState.IsValid)
@@ -75,18 +76,22 @@ namespace Vidly.Controllers
                 };
             return View("Create", viewModel);
             }
-            if (customer.Id==0)
-            {
-                _context.Customers.Add(customer);
-            }
             else
             {
-                var customerInDb = _context.Customers.Single(m => m.Id == customer.Id);
-                customerInDb.Name = customer.Name;
-                customerInDb.DOB = customer.DOB;
-                customerInDb.IsSubscribeToMovie = customer.IsSubscribeToMovie;
-                customerInDb.MemberShipTypeId = customer.MemberShipTypeId;
-            }  
+                if (customer.Id == 0)
+                {
+                    _context.Customers.Add(customer);
+                }
+                else
+                {
+                    var customerInDb = _context.Customers.Single(m => m.Id == customer.Id);
+                    customerInDb.Name = customer.Name;
+                    customerInDb.DOB = customer.DOB;
+                    customerInDb.IsSubscribeToMovie = customer.IsSubscribeToMovie;
+                    customerInDb.MemberShipTypeId = customer.MemberShipTypeId;
+                }
+            }
+            
             _context.SaveChanges();
             return RedirectToAction("Index","Customers");
         }
