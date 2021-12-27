@@ -11,7 +11,8 @@ namespace Vidly.Models
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var Customer = (Customer)validationContext.ObjectInstance;
-            if (Customer.MemberShipTypeId==0 || Customer.MemberShipTypeId == 1)
+            if (Customer.MemberShipTypeId==MemberShipType.Unknown ||
+                Customer.MemberShipTypeId == MemberShipType.Free)
                 return ValidationResult.Success;
 
             if (Customer.DOB == null)
