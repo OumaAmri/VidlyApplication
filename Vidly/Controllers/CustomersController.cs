@@ -54,6 +54,7 @@ namespace Vidly.Controllers
 
         public ActionResult Create()
         {
+          
             var memberShipTypes = _context.MemberShipTypes.ToList();
             var viewModel = new FormCustomerViewModel
             {
@@ -65,7 +66,16 @@ namespace Vidly.Controllers
         [HttpPost]
         public ActionResult Save(Customer customer)//On met Customer à la place de CreateCustomerViewModel parce que MVC Framework is smart to bind this object ! because all the keys in the form data is prefixed by Customer
         {
-            if(customer.Id==0)
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new FormCustomerViewModel
+                {
+                    Customer = customer,
+                    MemberShipTypes = _context.MemberShipTypes.ToList()
+                };
+            return View("Create", viewModel);
+            }
+            if (customer.Id==0)
             {
                 _context.Customers.Add(customer);
             }
