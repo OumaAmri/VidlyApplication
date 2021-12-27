@@ -64,7 +64,8 @@ namespace Vidly.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]        
+        [HttpPost]     
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)//On met Customer à la place de CreateCustomerViewModel parce que MVC Framework is smart to bind this object ! because all the keys in the form data is prefixed by Customer
         {
             if (!ModelState.IsValid)

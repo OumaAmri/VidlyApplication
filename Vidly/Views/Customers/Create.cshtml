@@ -9,11 +9,15 @@
 @using (Html.BeginForm("Save", "Customers"))
 {
     @*@Html.ValidationSummary() or : *@
-    @Html.ValidationSummary(true,"Please fiix the following error :")
+    @Html.ValidationSummary(true, "Please fiix the following error :")
     <div class="form-group">
         @Html.LabelFor(m => m.Customer.Name)
         @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Customer.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.MemberShipTypeId)
+        @Html.DropDownListFor(m => m.Customer.MemberShipTypeId, new SelectList(Model.MemberShipTypes, "Id", "Name"), "Select memberShip", new { @class = "form-control" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Customer.DOB)
@@ -25,15 +29,13 @@
                     @Html.CheckBoxFor(m => m.IsSubscribeToMovie)
         </div>*@
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Customer.MemberShipTypeId)
-        @Html.DropDownListFor(m => m.Customer.MemberShipTypeId, new SelectList(Model.MemberShipTypes, "Id", "Name"), "Select memberShip", new { @class = "form-control" })
-    </div>
+
     <div class="checkbox">
         <label>
             @Html.CheckBoxFor(m => m.Customer.IsSubscribeToMovie) IsSubscribeToMovie
         </label>
     </div>
     @Html.HiddenFor(m => m.Customer.Id)
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
 }
