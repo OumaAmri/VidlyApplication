@@ -53,10 +53,10 @@ namespace Vidly.Controllers
             //return new EmptyResult();
             //return RedirectToAction("Index", "Home", new { page = 1 });
         }
-        public ActionResult Edit(int id)
-        {
-            return Content("id=" + id);
-        }
+        //public ActionResult Edit(int id)
+        //{
+        //    return Content("id=" + id);
+        //}
 
         //public ActionResult Index(int? pageNumber, string sortBy) {
         //    if (!pageNumber.HasValue)
@@ -91,18 +91,47 @@ namespace Vidly.Controllers
         [HttpPost]
         public ActionResult Save(Movie Movie)
         {
-            Movie.DateAdded = DateTime.Now;
-            _context.Movies.Add(Movie);
-            try
+            if (Movie.Id == 0)
             {
-                _context.SaveChanges();
+                Movie.DateAdded = DateTime.Now;
+                _context.Movies.Add(Movie);
             }
-            catch(DbEntityValidationException e)
+            else
             {
-                Console.WriteLine(e);
+                var movieInDb = _context.Movies.SingleOrDefault(m => m.Id == Movie.Id);
+                movieInDb.Name = Movie.Name;
+                movieInDb.NumberInStock = Movie.NumberInStock;
+                movieInDb.ReleaseDate = Movie.ReleaseDate;
+                movieInDb.GenreId = Movie.GenreId;
             }
-            
+
+            //try
+            //{
+            //    _context.SaveChanges();
+            //}
+            //catch(DbEntityValidationException e)
+            //{
+            //    Console.WriteLine(e);
+            //}
+
+            _context.SaveChanges();
+
             return RedirectToAction("Index","Movies");
+        }
+
+
+        public ActionResult Edit(int id)
+        {
+            var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
+            if (movie == null)
+                return HttpNotFound();
+
+            var createMovieViewModel = new FormMovieViewModel
+            {
+                Movie = movie,
+                Genres = _context.Genres.ToList()
+            };
+            return View("Create", createMovieViewModel);
         }
     }
 }
