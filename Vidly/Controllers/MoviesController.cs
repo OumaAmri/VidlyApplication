@@ -2,11 +2,9 @@
 using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
 using Vidly.ViewModels;
-using System.Data.Entity.Validation;
 
 namespace Vidly.Controllers
 {
@@ -83,14 +81,28 @@ namespace Vidly.Controllers
         {
             var model = new FormMovieViewModel
             {
+                Movie = new Movie(),                
                 Genres = _context.Genres.ToList()
             };
+            model.Movie.NumberInStock = 0;
+            model.Movie.ReleaseDate = DateTime.Parse("01/01/2000");
             return View(model);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Movie Movie)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new FormMovieViewModel
+                {
+                    Movie = Movie,
+                    Genres = _context.Genres.ToList()
+                };
+                return View("Create", viewModel);
+            }
+
             if (Movie.Id == 0)
             {
                 Movie.DateAdded = DateTime.Now;
@@ -104,7 +116,6 @@ namespace Vidly.Controllers
                 movieInDb.ReleaseDate = Movie.ReleaseDate;
                 movieInDb.GenreId = Movie.GenreId;
             }
-
             //try
             //{
             //    _context.SaveChanges();
@@ -113,7 +124,6 @@ namespace Vidly.Controllers
             //{
             //    Console.WriteLine(e);
             //}
-
             _context.SaveChanges();
 
             return RedirectToAction("Index","Movies");

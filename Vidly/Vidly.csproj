@@ -189,6 +189,22 @@
     <Compile Include="Migrations\202112141119036_fixDatetimeProblem.designer.cs">
       <DependentUpon>202112141119036_fixDatetimeProblem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112271449183_requieredFieldInMovieModel.cs" />
+    <Compile Include="Migrations\202112271449183_requieredFieldInMovieModel.designer.cs">
+      <DependentUpon>202112271449183_requieredFieldInMovieModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112290929381_ForMovie.cs" />
+    <Compile Include="Migrations\202112290929381_ForMovie.designer.cs">
+      <DependentUpon>202112290929381_ForMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112290941426_ForMovie2.cs" />
+    <Compile Include="Migrations\202112290941426_ForMovie2.designer.cs">
+      <DependentUpon>202112290941426_ForMovie2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112290952008_addRangeConditionToMovie.cs" />
+    <Compile Include="Migrations\202112290952008_addRangeConditionToMovie.designer.cs">
+      <DependentUpon>202112290952008_addRangeConditionToMovie.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -305,6 +321,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112141119036_fixDatetimeProblem.resx">
       <DependentUpon>202112141119036_fixDatetimeProblem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112271449183_requieredFieldInMovieModel.resx">
+      <DependentUpon>202112271449183_requieredFieldInMovieModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112290929381_ForMovie.resx">
+      <DependentUpon>202112290929381_ForMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112290941426_ForMovie2.resx">
+      <DependentUpon>202112290941426_ForMovie2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112290952008_addRangeConditionToMovie.resx">
+      <DependentUpon>202112290952008_addRangeConditionToMovie.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
